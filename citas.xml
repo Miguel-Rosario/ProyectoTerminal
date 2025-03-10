@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<citas>
+  <cita>
+    <id>1001</id>
+    <nombre>Juan</nombre>
+    <apellido>Pérez</apellido>
+    <placa>12-3QW</placa>
+    <zona>1</zona>
+    <engomado>3</engomado>
+  </cita>
+  <cita>
+    <id>1002</id>
+    <nombre>María</nombre>
+    <apellido>González</apellido>
+    <placa>AB-013</placa>
+    <zona>3</zona>
+    <engomado>2</engomado>
+  </cita>
+  <cita>
+    <id>1003</id>
+    <nombre>Pablo</nombre>
+    <apellido>Rodríguez</apellido>
+    <placa>1A-2B3</placa>
+    <zona>4</zona>
+    <engomado>4</engomado>
+  </cita>
+</citas>

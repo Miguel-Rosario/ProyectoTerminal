@@ -1,4 +1,6 @@
 # ProyectoTerminal
+Este proyecto busca desarrollar un sistema que no solo valide la autenticidad e integridad de los documentos digitales, sino
+que tambien pueda diferenciar entre modificaciones leg´ıtimas realizadas por el creador original y alteraciones no autorizadas, utilizando metodos criptograficos avanzados como funciones hash y firmas digitales.
 Criptografia 
 Funciones Hash
 # Primera Implementacion. Generación de Hashes

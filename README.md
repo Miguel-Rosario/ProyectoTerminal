@@ -7,9 +7,11 @@ Funciones Hash
 
 Este proyecto demuestra cómo procesar archivos XML, extraer información, convertirla a diferentes formatos y generar hashes SHA-256 de los datos.
 
-# Generación de Hashes `importar_hashlib.py`
+# Generación de Hashes 
+    `importar_hashlib.py`
+   
 ## Funcionalidades
-
+    
 1. Probar con un archivo XML
 2. Convertir el XML a otros formatos
 3. Extraer información del XML y generar su hash SHA-256

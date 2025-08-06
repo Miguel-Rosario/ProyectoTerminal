@@ -124,11 +124,19 @@ def modificar_xml(ruta_xml):
 
 # Programa principal
 if __name__ == "__main__":
+
     if not os.path.exists(CLAVE_PRIVADA) or not os.path.exists(CLAVE_PUBLICA):
-        clave_privada, clave_publica = generar_claves()
-        guardar_clave(clave_privada, CLAVE_PRIVADA, es_privada=True)
-        guardar_clave(clave_publica, CLAVE_PUBLICA, es_privada=False)
-        print("Claves generadas y guardadas.")
+        print("Las claves RSA no existen.")
+        respuesta = input("¿Deseas generar nuevas claves RSA? (sí/no): ").strip().lower()
+        if respuesta == "sí":
+            clave_privada, clave_publica = generar_claves()
+            guardar_clave(clave_privada, CLAVE_PRIVADA, es_privada=True)
+            guardar_clave(clave_publica, CLAVE_PUBLICA, es_privada=False)
+            print(" Claves generadas y guardadas.")
+        else:
+            print(" No se generaron claves. El programa se cerrará.")
+            exit(1)
+
 
     ruta_archivo = input("Ingrese la ruta del archivo (XML/JSON): ")
     tipo_archivo = "json" if ruta_archivo.lower().endswith(".json") else "xml"
@@ -143,13 +151,13 @@ if __name__ == "__main__":
             contenido = archivo.read()
         
         if verificar_firma(contenido, firma_guardada, clave_publica):
-            print("✅ La firma es válida: el documento no ha sido alterado.")
+            print("La firma es válida: el documento no ha sido alterado.")
             puede_modificarse = True
         else:
-            print("❌ La firma NO es válida: el documento fue modificado o las claves cambiaron.")
+            print("La firma NO es válida: el documento fue modificado o las claves cambiaron.")
             puede_modificarse = False
     else:
-        print("⚠️ El archivo no está firmado. Se firmará después de modificarlo.")
+        print("El archivo no está firmado. Se firmará después de modificarlo.")
         puede_modificarse = True
 
     
@@ -161,7 +169,7 @@ if __name__ == "__main__":
                 firma = firmar_documento(contenido, cargar_clave(CLAVE_PRIVADA, es_privada=True))
                 with open(FIRMA_ARCHIVO, "wb") as f:
                     f.write(firma)
-                print("✅ Documento XML firmado nuevamente.")
+                print("Documento XML firmado nuevamente.")
         else:
             if modificar_json(ruta_archivo):
                 with open(ruta_archivo, "rb") as archivo:
@@ -169,6 +177,6 @@ if __name__ == "__main__":
                 firma = firmar_documento(contenido, cargar_clave(CLAVE_PRIVADA, es_privada=True))
                 with open(FIRMA_ARCHIVO, "wb") as f:
                     f.write(firma)
-                print("✅ Documento JSON firmado nuevamente.")
+                print("Documento JSON firmado nuevamente.")
     else:
-        print("❌ No se puede modificar ni firmar el documento debido a una firma inválida.")
+        print(" No se puede modificar ni firmar el documento debido a una firma inválida.")

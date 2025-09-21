@@ -2,44 +2,69 @@ import mysql.connector
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization
 
-# Conexión al servidor MySQL (no a la BD aún)
-print("entro ")
+# 🔹 Conexión al servidor MySQL (sin seleccionar BD aún)
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="rorm990913"
+    password="Contraseña"
 )
-print("SE conecto")
 cursor = db.cursor()
 
-# Crear BD
+# 🔹 Crear BD si no existe
 cursor.execute("CREATE DATABASE IF NOT EXISTS sistema_firmas")
 cursor.execute("USE sistema_firmas")
 
-# Crear tablas
+# =========================
+# TABLA DE USUARIOS
+# =========================
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100),
-    clave_publica TEXT,
-    clave_privada TEXT
+    usuario VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
 """)
 
+# =========================
+# TABLA DE DOCUMENTOS
+# =========================
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS documentos (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(255),
-    tipo ENUM('json','xml'),
-    contenido LONGTEXT,
-    hash VARCHAR(64),
-    firma BLOB,
-    usuario_id INT,
+    nombre_archivo VARCHAR(255) NOT NULL,
+    contenido LONGTEXT NOT NULL,
+    hash VARCHAR(255) NOT NULL,
+    propietario_id INT NOT NULL,
+    firmado BOOLEAN DEFAULT 1,
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (propietario_id) REFERENCES usuarios(id)
+)
+""")
+
+# =========================
+# TABLA DE VERSIONES_DOCUMENTOS
+# =========================
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS versiones_documentos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    documento_id INT NOT NULL,
+    version INT NOT NULL,
+    contenido LONGTEXT NOT NULL,
+    hash VARCHAR(255) NOT NULL,
+    usuario_id INT NOT NULL,
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (documento_id) REFERENCES documentos(id),
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 )
 """)
 
-# Generar claves RSA
+# =========================
+# CREAR UN USUARIO DE PRUEBA CON CLAVES RSA
+# =========================
 privada = rsa.generate_private_key(public_exponent=65537, key_size=2048)
 publica = privada.public_key()
 
@@ -58,12 +83,13 @@ publica_pem = publica.public_bytes(
 cursor.execute("SELECT COUNT(*) FROM usuarios")
 if cursor.fetchone()[0] == 0:
     cursor.execute("""
-        INSERT INTO usuarios (nombre, clave_publica, clave_privada)
-        VALUES (%s, %s, %s)
-    """, ("usuario_prueba", publica_pem, privada_pem))
+        INSERT INTO usuarios (usuario, password, nombre, apellido)
+        VALUES (%s, %s, %s, %s)
+    """, ("usuario_prueba", publica_pem, "Usuario", "Prueba"))
     db.commit()
-    print("✅ Usuario de prueba creado con claves RSA.")
+    print("✅ Usuario de prueba creado con claves RSA (clave pública guardada en 'password').")
 else:
     print("ℹ️ Ya existe un usuario en la BD.")
 
 db.close()
+

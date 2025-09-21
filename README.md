@@ -57,7 +57,7 @@ El módulo permite a los usuarios subir, firmar y gestionar documentos con contr
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/tuusuario/tu_proyecto.git
-cd tu_proyecto/web
+git clone https://github.com/Miguel-Rosario/ProyectoTerminal.git
+cd PT_web/web
 
 

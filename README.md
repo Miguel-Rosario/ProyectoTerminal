@@ -10,6 +10,8 @@ El sistema experimentó una evolución significativa desde su concepción inicia
 
 ### **Fase 1: Prototipo Básico (Consola)**
 - **Cálculo de Hashes**: Implementación inicial con `hashlib` para verificación de integridad
+
+- 
 - **Múltiples Algoritmos**: Soporte para MD5, SHA-1, SHA-224, SHA-256, SHA-384, SHA-512
 - **Análisis de Documentos**: Lectura y procesamiento de archivos XML y JSON
 - **Verificación de Checksum**: Comparación de hashes para detección de alteraciones

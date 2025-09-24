@@ -34,7 +34,7 @@ Sistema integral que garantiza autenticidad, integridad y no repudio de document
 ## Características Principales
 
 ### **Criptografía Robusta**
-- **Algoritmos**: RSA-2048 con padding PSS + SHA-256
+- **Algoritmos**: RSA-2048 + SHA-256
 - **Firmas Digitales**: Verificación de autenticidad e integridad
 - **Funciones Hash**: Cálculo de hashes múltiples (MD5, SHA-1, SHA-256, etc.)
 - **Gestión de Claves**: Generación automática de pares de claves RSA

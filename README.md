@@ -1,63 +1,34 @@
-# ProyectoTerminal: Identificación de Documentos y Detección de Modificaciones Autorizadas mediante Criptografía
+# Proyecto Terminal: Identificación de Documentos y Detección de Modificaciones Autorizadas mediante Criptografía
 Este proyecto busca desarrollar un sistema que no solo valide la autenticidad e integridad de los documentos digitales, sino
 que tambien pueda diferenciar entre modificaciones leg´ıtimas realizadas por el creador original y alteraciones no autorizadas, utilizando metodos criptograficos avanzados como funciones hash y firmas digitales.
 
-Criptografia 
-Funciones Hash
+## Sistema de Firma Digital para Documentos XML/JSON
 
-Este proyecto demuestra cómo procesar archivos XML, extraer información, convertirla a diferentes formatos y generar hashes SHA-256 de los datos.
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://python.org)
+[![Flask](https://img.shields.io/badge/Flask-2.3%2B-green)](https://flask.palletsprojects.com)
+[![Cryptography](https://img.shields.io/badge/Cryptography-RSA--2048%2FSHA--256-red)](https://cryptography.io)
 
-# Generación de Hashes 
-    `importar_hashlib.py`
-   
-## Funcionalidades
-    
-1. Probar con un archivo XML
-2. Convertir el XML a otros formatos
-3. Extraer información del XML y generar su hash SHA-256
-4. Convertir el XML a un diccionario Python y luego generar su hash
-5. Operaciones básicas con hashes SHA-256
+Sistema integral de firma digital que garantiza autenticidad, integridad y no repudio de documentos XML y JSON mediante técnicas criptográficas avanzadas. Detecta modificaciones no autorizadas mientras permite cambios legítimos mediante re-firmado controlado.
 
-## Requisitos
+##  Características Principales
 
-- Python
-- Módulos requeridos:
-  - `hashlib` (incluido en la biblioteca estándar de Python)
+###  **Criptografía Robusta**
+- **Algoritmos**: RSA-2048 con padding PSS + SHA-256
+- **Firmas Digitales**: Verificación de autenticidad e integridad
+- **Funciones Hash**: Cálculo de hashes múltiples (MD5, SHA-1, SHA-256, etc.)
+- **Gestión de Claves**: Generación automática de pares de claves RSA
 
-## Uso Básico
+###  **Gestión Documental Avanzada**
+- **Formatos Soportados**: XML y JSON
+- **Control de Versiones**: Historial completo de modificaciones
+- **Verificación en Tiempo Real**: Validación inmediata de integridad
+- **Re-firmado Automático**: Para modificaciones autorizadas del propietario
 
-El código incluye ejemplos de cómo generar hashes SHA-256:
+###  **Interfaz Web Multi-Usuario**
+- **Autenticación Segura**: Registro y login con hash de contraseñas
+- **API RESTful**: Endpoints para integración con otros sistemas
+- **Interfaz Intuitiva**: Gestión documental mediante navegador web
+- **Base de Datos**: Almacenamiento persistente en MySQL
 
-```python
-import hashlib
-
-# Crear un objeto hash SHA-256
-m = hashlib.sha256()
-
-# Actualizar el hash con datos (deben ser bytes)
-m.update(b"Texto de ejemplo")
-
-# Obtener diferentes representaciones del hash
-print("Nombre del algoritmo:", m.name)
-print("Digest (bytes):", m.digest())
-print("Hexdigest:", m.hexdigest())
-print("Tamaño de bloque:", m.block_size)
-print("Tamaño del digest:", m.digest_size)
-```
-# Identificación de Documentos y Detección de Modificaciones Autorizadas mediante Criptografía(WEB)
-
-Este sistema es un **complemento web** del proyecto.  
-El módulo permite a los usuarios subir, firmar y gestionar documentos con control de versiones y autenticación.  
-
-> Importante: el sistema web está dentro de la carpeta `PT_web/`.
-
----
-
-## Instalación y ejecución
-
-### 1. Clonar el repositorio
-```bash
-git clone https://github.com/Miguel-Rosario/ProyectoTerminal.git
-cd PT_web/web
-
+## 🏗️ Arquitectura del Sistema
 
